@@ -5,7 +5,8 @@ from streamlit_gsheets import GSheetsConnection
 
 # Create a connection object
 conn = st.connection("gsheets", type=GSheetsConnection)
-google_sheets_table = conn.read()
+url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTPg2ynowaOy_4G6R9BMIwZd6M9RudnYXOAZhQMmJ8xL8l-SklGybTpquoA4ZaCNgPQT3Is16W782UJ/pubhtml?gid=0&amp;single=true&amp;widget=true&amp;headers=false"
+google_sheets_table = conn.read(spreadsheet=url)
 dataframe = pd.DataFrame(google_sheets_table) # Convert google sheets table into python dataframe. Streamlit expects dataframes as input.
 
 # Introduction text
@@ -14,13 +15,11 @@ Hi there! This is a simple Google Sheets example on how to embed a dynamic table
 """
 
 # Define tabs
-tab1, tab2 = st.tabs(["Table", "Graph"])
+tab1 = st.tabs(["Sheet1"])
 
 # Streamlit content
 with tab1:
   st.write(dataframe)
-with tab2:
-  st.line_chart(dataframe,x="Date", y="Close")
 
 # Footer text
 """
