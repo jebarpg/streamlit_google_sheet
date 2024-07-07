@@ -6,20 +6,14 @@ from streamlit_gsheets import GSheetsConnection
 # Create a connection object
 url = "https://docs.google.com/spreadsheets/d/1pZkq7l2JPEmIePg8acAD_rPM0FHXwp6p54hTjp530K4/edit?usp=sharing"
 conn = st.experimental_connection("gsheets", type=GSheetsConnection)
-google_sheets_table = conn.read(spreadsheet=url)
-dataframe = pd.DataFrame(google_sheets_table) # Convert google sheets table into python dataframe. Streamlit expects dataframes as input.
+data = conn.read(spreadsheet=url)
+st.dataframe(data)
 
 # Introduction text
 """
 Hi there! This is a simple Google Sheets example on how to embed a dynamic table on a Medium blog post with Streamlit! 
 """
 
-# Define tabs
-tab1 = st.tabs(["Sheet1"])
-
-# Streamlit content
-with tab1:
-  st.write(dataframe)
 
 # Footer text
 """
