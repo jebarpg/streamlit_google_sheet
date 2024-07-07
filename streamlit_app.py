@@ -4,8 +4,9 @@ import pandas as pd
 from streamlit_gsheets import GSheetsConnection
 
 # Create a connection object
-conn = st.connection("gsheets", type=GSheetsConnection)
-google_sheets_table = conn.read()
+url = "https://docs.google.com/spreadsheets/d/1pZkq7l2JPEmIePg8acAD_rPM0FHXwp6p54hTjp530K4/edit?usp=sharing"
+conn = st.experimental_connection("gsheets", type=GSheetsConnection)
+google_sheets_table = conn.read(spreadsheet=url)
 dataframe = pd.DataFrame(google_sheets_table) # Convert google sheets table into python dataframe. Streamlit expects dataframes as input.
 
 # Introduction text
